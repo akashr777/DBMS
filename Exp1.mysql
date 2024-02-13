@@ -1,0 +1,157 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| KSB                |
+| akash              |
+| akashr             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> create database exp1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use exp1;
+Database changed
+mysql> create table employee(emp_id int,name varchar(20),city varchar(15),dob DATE,adhar_no int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(15) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table students1(roll_no int primary key, name varchar(20)not null,age int check(age<100),gender varchar(20) default'm',address
+    ->    varchar(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc students1;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| gender  | varchar(20) | YES  |     | m       |       |
+| address | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> create temporary table students2 select *from students1;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc students2;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   |     | NULL    | NULL  |
+| name    | varchar(20) | NO   |     | NULL    | NULL  |
+| age     | int         | YES  |     | NULL    | NULL  |
+| gender  | varchar(20) | YES  |     | m       | NULL  |
+| address | varchar(20) | YES  |     | NULL    | NULL  |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE dup_employee AS SELECT * FROM employee;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc dup_employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(15) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(15) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> Create database INVOICE;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use INVOICE;
+Database changed
+mysql> CREATE TABLE CUSTOMER(C_ID INT PRIMARY KEY,NAME VARCHAR(20),ADDRESS VARCHAR(35),CITY VARCHAR(25),PH_NO INT);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc customer;
+ERROR 1146 (42S02): Table 'INVOICE.customer' doesn't exist
+mysql> desc CUSTOMER;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| C_ID    | int         | NO   | PRI | NULL    |       |
+| NAME    | varchar(20) | YES  |     | NULL    |       |
+| ADDRESS | varchar(35) | YES  |     | NULL    |       |
+| CITY    | varchar(25) | YES  |     | NULL    |       |
+| PH_NO   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE PRODUCT(P_ID INT PRIMARY KEY,P_NAME VARCHAR(15),PRICE INT DEFAULT'0');
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC PRODUCT;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| P_ID   | int         | NO   | PRI | NULL    |       |
+| P_NAME | varchar(15) | YES  |     | NULL    |       |
+| PRICE  | int         | YES  |     | 0       |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE INVOICE_MASTER(INV_ID INT PRIMARY KEY,CUST_ID INT,INV_DATE DATE,FOREIGN KEY(CUST_ID) REFERENCES CUSTOMER(C_ID));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC INVOICE_MASTER;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| INV_ID   | int  | NO   | PRI | NULL    |       |
+| CUST_ID  | int  | YES  | MUL | NULL    |       |
+| INV_DATE | date | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> CREATE TABLE INVOICE_ITEM(INV_ID  INT,PID INT ,QUANTITY INT,FOREIGN KEY(INV_ID) REFERENCES INVOICE_MASTER(INV_ID),FOREIGN KEY(PID) REFERENCES PRODUCT(P_ID));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC INVOICE_ITEM;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| INV_ID   | int  | YES  | MUL | NULL    |       |
+| PID      | int  | YES  | MUL | NULL    |       |
+| QUANTITY | int  | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+
