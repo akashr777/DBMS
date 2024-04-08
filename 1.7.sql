@@ -51,3 +51,5 @@ mysql> select * from customer inner join invoice_master on customer.id=invoice_m
 | 10005 | rajesh | mno house | wyn  | 9712346895 |    105 |   10005 | 2023-11-30 |    105 | 3333 |       12 | 3333 | book  |   224 |
 +-------+--------+-----------+------+------------+--------+---------+------------+--------+------+----------+------+-------+-------+
 1 row in set (0.00 sec)
+
+//VERIFIED
