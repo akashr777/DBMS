@@ -71,4 +71,4 @@ mysql> select count(*),city from customer group by city having count(city)>3;
 +----------+------+
 1 row in set (0.01 sec)
 
-
+//VERIFIED
