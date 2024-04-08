@@ -173,3 +173,5 @@ mysql> show grants for akashr@'localhost';
 | GRANT UPDATE ON `invoice`.`customer` TO `akashr`@`localhost` |
 +--------------------------------------------------------------+
 2 rows in set (0.00 sec)
+
+//VERIFIED
