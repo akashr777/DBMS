@@ -31,3 +31,5 @@ mysql> select pid,pname,price,priceind(price) from product;
 | 5555 | Bucket |    31 | low             |
 +------+--------+-------+-----------------+
 5 rows in set (0.00 sec)
+
+//VERIFIED
