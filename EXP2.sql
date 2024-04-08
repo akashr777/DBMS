@@ -793,3 +793,5 @@ mysql> select * from invoice_item;
 |    106 | 4444 |        5 |
 +--------+------+----------+
 3 rows in set (0.00 sec)
+
+//VERIFIED
