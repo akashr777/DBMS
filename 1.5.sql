@@ -68,3 +68,4 @@ mysql> select pname,price from product where pid in(select pid from invoice_item
 1 row in set (0.00 sec)
 
 
+//VERIFIED
