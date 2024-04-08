@@ -139,5 +139,5 @@ mysql> select * from customer;
 8 rows in set (0.00 sec)
 
 
-
+//VERIFIED
 
