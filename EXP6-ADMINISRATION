@@ -1,0 +1,104 @@
+1. Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the INVOICE database. 
+
+test> use invoice
+switched to db invoice
+invoice> db.createUser({user:"Customer1",pwd:"1234",roles:[{role:"read",db:"invoice"}]})
+{ ok: 1 }
+
+
+2.  Write a MongoDB query to create the backup for the INVOICE database.
+
+test> use dummy
+switched to db dummy
+dummy> show dbs
+INVOICE  144.00 KiB
+admin     40.00 KiB
+akash     72.00 KiB
+config   108.00 KiB
+local     72.00 KiB
+test      40.00 KiB
+dummy> db.createCollection("cust")
+{ ok: 1 }
+dummy> show dbs
+INVOICE  144.00 KiB
+admin     40.00 KiB
+akash     72.00 KiB
+config    84.00 KiB
+dummy      8.00 KiB
+local     72.00 KiB
+test      40.00 KiB
+dummy> mongodump --db dummy
+[1]+  Stopped                 mongosh
+(base) ksb@ksb-H410M-H-V2:~$ mongodump --db dummy
+2024-04-17T14:42:47.254+0530	writing dummy.cust to dump/dummy/cust.bson
+2024-04-17T14:42:47.255+0530	done dumping dummy.cust (0 documents)
+(base) ksb@ksb-H410M-H-V2:~$ mongosh
+Current Mongosh Log ID:	661f9298db6fb653f9ef634a
+Connecting to:		mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.3
+Using MongoDB:		7.0.8
+Using Mongosh:		2.2.3
+mongosh 2.2.4 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-04-17T14:39:58.199+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2024-04-17T14:39:58.765+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2024-04-17T14:39:58.765+05:30: vm.max_map_count is too low
+------
+
+test> show dbs
+INVOICE  144.00 KiB
+admin     40.00 KiB
+akash     72.00 KiB
+config    84.00 KiB
+dummy      8.00 KiB
+local     72.00 KiB
+test      40.00 KiB
+test> use dummy
+switched to db dummy
+dummy> db.dropDatabase()
+{ ok: 1, dropped: 'dummy' }
+dummy> show dbs
+INVOICE  144.00 KiB
+admin     40.00 KiB
+akash     72.00 KiB
+config    84.00 KiB
+local     72.00 KiB
+test      40.00 KiB
+dummy> 
+[2]+  Stopped                 mongosh
+(base) ksb@ksb-H410M-H-V2:~$ mongorestore --db dummy dump/dummy
+2024-04-17T14:44:40.928+0530	The --db and --collection flags are deprecated for this use-case; please use --nsInclude instead, i.e. with --nsInclude=${DATABASE}.${COLLECTION}
+2024-04-17T14:44:40.929+0530	building a list of collections to restore from dump/dummy dir
+2024-04-17T14:44:40.929+0530	reading metadata for dummy.cust from dump/dummy/cust.metadata.json
+2024-04-17T14:44:40.951+0530	restoring dummy.cust from dump/dummy/cust.bson
+2024-04-17T14:44:40.963+0530	finished restoring dummy.cust (0 documents, 0 failures)
+2024-04-17T14:44:40.963+0530	no indexes to restore for collection dummy.cust
+2024-04-17T14:44:40.963+0530	0 document(s) restored successfully. 0 document(s) failed to restore.
+(base) ksb@ksb-H410M-H-V2:~$ mongosh
+Current Mongosh Log ID:	661f93096f64878f8fef634a
+Connecting to:		mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.3
+Using MongoDB:		7.0.8
+Using Mongosh:		2.2.3
+mongosh 2.2.4 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-04-17T14:39:58.199+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2024-04-17T14:39:58.765+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2024-04-17T14:39:58.765+05:30: vm.max_map_count is too low
+------
+
+test> show dbs
+INVOICE  144.00 KiB
+admin     40.00 KiB
+akash     72.00 KiB
+config    84.00 KiB
+dummy      8.00 KiB
+local     72.00 KiB
+test      40.00 KiB
+
