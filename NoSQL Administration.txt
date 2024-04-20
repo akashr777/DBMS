@@ -1,0 +1,65 @@
+NoSQL – ADMINISTRATION
+
+1.      Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the INVOICE database. 
+
+test> use INVOICE
+switched to db INVOICE
+INVOICE> db.createUser({user:"customer1",pwd:"1234",roles:[{role:"read",db:"INVOICE"},]})
+{ ok: 1 }
+
+
+2.      Write a MongoDB query to create the backup for the INVOICE database.
+
+test> use dummy
+switched to db dummy
+dummy> show dbs
+INVOICE  80.00 KiB
+admin    40.00 KiB
+config   72.00 KiB
+dummydb  16.00 KiB
+ksb      40.00 KiB
+local    72.00 KiB
+dummy> db.createCollection("customer")
+{ ok: 1 }
+dummy> show dbs
+INVOICE  80.00 KiB
+admin    40.00 KiB
+config   72.00 KiB
+dummy     8.00 KiB
+dummydb  16.00 KiB
+ksb      40.00 KiB
+local    72.00 KiB
+dummy> 
+[1]+  Stopped                 mongosh
+(base) ksb@ksb-OptiPlex-3060:~$ mongodump --db dummy
+
+(base) ksb@ksb-OptiPlex-3060:~$ mongosh
+
+test> use dummy
+switched to db dummy
+dummy> db.dropDatabase()
+{ ok: 1, dropped: 'dummy' }
+dummy> show dbs
+INVOICE  80.00 KiB
+admin    40.00 KiB
+config   72.00 KiB
+dummydb  16.00 KiB
+ksb      40.00 KiB
+local    72.00 KiB
+dummy> 
+[2]+  Stopped                 mongosh
+
+
+3.      Write a MongoDB query to restore a particular database or a collection.
+
+(base) ksb@ksb-OptiPlex-3060:~$ mongorestore --db dummy dumb/dummy
+2024-04-17T14:44:35.023+0530	0 document(s) restored successfully. 0 document(s) failed to restore.
+(base) ksb@ksb-OptiPlex-3060:~$ mongosh
+test> show dbs
+INVOICE  80.00 KiB
+admin    40.00 KiB
+config   72.00 KiB
+dummydb  16.00 KiB
+ksb      40.00 KiB
+local    72.00 KiB
+test> 
